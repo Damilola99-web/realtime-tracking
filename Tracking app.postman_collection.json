@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "9960be45-b2e6-4ab2-b881-c58b5cf70b0e",
+		"name": "Tracking app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15544476",
+		"_collection_link": "https://lunar-shuttle-830387.postman.co/workspace/My-Workspace~5f5aa68b-3004-49aa-891f-2b4eef2fecf8/collection/15544476-9960be45-b2e6-4ab2-b881-c58b5cf70b0e?action=share&creator=15544476&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"timi@gmail.com\",\r\n    \"password\": \"mimi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"mimi@gmail.com\",\r\n    \"password\": \"mimi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
