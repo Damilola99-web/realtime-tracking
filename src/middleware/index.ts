@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 const authenticateSocket = (socket: CustomSocket, next: NextFunction) => {
     const token = socket.handshake.headers.authorization?.split(" ")[1];
     if (!token) {
-        return next(new Error("Authentication failed"));
+        return next(new Error("Authentication failed - 🔒🔒🔒🔒🔒"));
     }
     try {
         const payload: any = jwt.verify(token, "secret");
@@ -16,7 +16,7 @@ const authenticateSocket = (socket: CustomSocket, next: NextFunction) => {
         socket.userId = payload.userId;
         next();
     } catch (err) {
-        next(new Error("Authentication failed"));
+        next(new Error("Authentication failed 🔥🔥🔥🔥" + err));
     }
 };
 
