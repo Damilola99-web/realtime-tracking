@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import express from "express";
 import { User } from "../models/user.model";
+import {HttpResponse } from "../error/error";
+
 
 const router = express.Router();
 
@@ -12,7 +14,7 @@ router.post("/register", async (req: Request, res: Response, next: NextFunction)
         const { email, password, role } = req.body;
         const userExists = await User.findOne({ email });
         if (userExists) {
-            return res.status(400).json({ message: "User already exists" });
+            throw HttpResponse.Conflict; 
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new User({ email, password: hashedPassword, role });
@@ -28,11 +30,11 @@ router.post("/login", async (req: Request, res: Response, next: NextFunction) =>
         const { email, password } = req.body;
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            throw HttpResponse.NotFound;
         }
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            throw HttpResponse.BadRequest;
         }
         const token = jwt.sign({ userId: user._id }, "secret");
         res.json({ token });

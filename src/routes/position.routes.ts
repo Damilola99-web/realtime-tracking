@@ -3,6 +3,7 @@ import { CustomSocket } from "../interface";
 import authenticateSocket from "../middleware";
 import { Position } from "../models/position.model";
 
+
 const setupWebSocket = (io: Server) => {
     io.use(authenticateSocket).on("connection", (socket: CustomSocket) => {
         console.log("User connected");
@@ -21,9 +22,11 @@ const setupWebSocket = (io: Server) => {
 
                 const position = new Position({ userId, location: { type: "Point", coordinates: [longitude, latitude] } });
                 await position.save();
-                io.emit("position", { userId, latitude, longitude });
+                // emit to all clients from the server
+                io.emit("log", { userId, latitude, longitude });
             } catch (err) {
                 console.error("Error saving position:", err);
+                socket.emit("error saving position", { userId, latitude, longitude });
             }
         });
 

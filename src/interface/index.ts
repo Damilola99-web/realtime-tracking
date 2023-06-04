@@ -26,4 +26,9 @@ interface CustomSocket extends Socket {
     token: string;
 }
 
-export { IUser, IPosition, CustomSocket, Role };
+interface MessageResponse {
+    message: string;
+    data?: any;
+}
+
+export { IUser, IPosition, CustomSocket, Role, MessageResponse };
