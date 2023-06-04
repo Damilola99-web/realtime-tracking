@@ -1,20 +1,24 @@
+import { AuthLoginInput, AuthRegisterInput, zodAuthLoginSchema } from './../utils/validations';
 import { Router, Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import express from "express";
 import { User } from "../models/user.model";
-import {HttpResponse } from "../error/error";
+import { HttpResponse } from "../error/error";
+import { zodAuthRegisterSchema } from "../utils/validations";
+import validate from '../utils/zod';
+
 
 
 const router = express.Router();
 
-
-router.post("/register", async (req: Request, res: Response, next: NextFunction) => {
+router.post("/register", validate(zodAuthRegisterSchema), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { email, password, role } = req.body;
+        const { email, password, role } = req.body as AuthRegisterInput;
+
         const userExists = await User.findOne({ email });
         if (userExists) {
-            throw HttpResponse.Conflict; 
+            throw HttpResponse.Conflict;
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new User({ email, password: hashedPassword, role });
@@ -25,9 +29,9 @@ router.post("/register", async (req: Request, res: Response, next: NextFunction)
     }
 });
 
-router.post("/login", async (req: Request, res: Response, next: NextFunction) => {
+router.post("/login", validate(zodAuthLoginSchema), async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { email, password } = req.body;
+        const { email, password } = req.body as AuthLoginInput;
         const user = await User.findOne({ email });
         if (!user) {
             throw HttpResponse.NotFound;

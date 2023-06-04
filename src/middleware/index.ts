@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 
 // Middleware to verify authentication
-const authenticateSocket = (socket: CustomSocket, next: NextFunction) => {
+const authenticateSocket = (socket: CustomSocket, next: NextFunction): void => {
     const token = socket.handshake.headers.authorization?.split(" ")[1];
     if (!token) {
         return next(new Error("Authentication failed - 🔒🔒🔒🔒🔒"));
@@ -19,5 +19,6 @@ const authenticateSocket = (socket: CustomSocket, next: NextFunction) => {
         next(new Error("Authentication failed 🔥🔥🔥🔥" + err));
     }
 };
+
 
 export default authenticateSocket;

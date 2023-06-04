@@ -14,7 +14,8 @@
     "mongoose": "^7.2.2",
     "nodemon": "^2.0.22",
     "socket.io": "^4.6.2",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

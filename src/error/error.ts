@@ -73,4 +73,5 @@ export const HttpResponse = {
     BandwidthLimitExceeded: new ApiResponse(509, 'Bandwidth Limit Exceeded', 'The server has exceeded the bandwidth specified by the server administrator.'),
     NotExtended: new ApiResponse(510, 'Not Extended', 'Further extensions to the request are required for the server to fulfill it.'),
     NetworkAuthenticationRequired: new ApiResponse(511, 'Network Authentication Required', 'The client needs to authenticate to gain network access.'),
+    ValidationError: new ApiResponse(600, 'Validation Error', 'Validation Error.'),
 };
